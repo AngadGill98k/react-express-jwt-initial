@@ -83,7 +83,7 @@ const opts = {
   secretOrKey: SECRET_KEY,
 };
 passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-  const user = users.find(u => u.id === jwt_payload.id);
+  const user = await User.findById(jwt_payload.id);
   if (user) {
     return done(null, user);
   } else {
