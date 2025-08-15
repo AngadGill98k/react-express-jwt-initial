@@ -82,7 +82,7 @@ const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: SECRET_KEY,
 };
-passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+passport.use(new JwtStrategy(opts, async(jwt_payload, done) => {
   const user = await User.findById(jwt_payload.id);
   if (user) {
     return done(null, user);
